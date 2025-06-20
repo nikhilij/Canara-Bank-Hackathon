@@ -66,11 +66,11 @@ flowchart TD
   A[User] --> B[React Dashboard]
   B --> C[Zero-Trust Express API]
   C --> D[Keycloak Auth + JWT]
-  C --> E[Tokenization Engine (Python)]
-  C --> F[Smart Contracts (Hyperledger)]
+  C --> E[Tokenization Engine Python]
+  C --> F[Smart Contracts Hyperledger]
   C --> G[Differential Privacy Layer]
   C --> H[Anomaly Detection Service]
-  C --> I[Audit Logs in PostgreSQL + Blockchain]
+  C --> I[Audit Logs in PostgreSQL Blockchain]
   I --> J[Compliance Reports]
 ```
 
