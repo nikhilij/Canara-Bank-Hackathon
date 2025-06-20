@@ -1,0 +1,18 @@
+# TrustVault Privacy Engine Requirements
+
+# Core Dependencies
+Flask==2.3.3
+python-dotenv==1.0.0
+requests==2.31.0
+numpy==1.24.3
+pandas==2.0.3
+
+# Privacy & Cryptography
+pycryptodome==3.19.0
+hashlib-blake3==0.1.0
+diffprivlib==0.6.3  # IBM's Differential Privacy Library
+
+# Testing & Development
+pytest==7.4.0
+black==23.7.0
+flake8==6.1.0

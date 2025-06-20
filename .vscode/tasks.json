@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run TrustVault",
+			"type": "shell",
+			"command": "cd /workspaces/Canara-Bank-Hackathon && echo \"TrustVault project is ready! Use 'docker-compose up' to start all services.\"",
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}
