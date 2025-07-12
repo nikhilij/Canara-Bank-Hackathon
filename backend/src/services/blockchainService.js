@@ -27,6 +27,18 @@ class BlockchainService {
     try {
       console.log(`Recording consent ${consentId} to blockchain`);
       
+      // TODO: Integrate with Hyperledger Fabric SDK for real chaincode invocation
+      // Example (pseudo-code):
+      // const { Gateway, Wallets } = require('fabric-network');
+      // const ccpPath = path.resolve(__dirname, '../../blockchain/network/connection-org1.json');
+      // ...
+      // const gateway = new Gateway();
+      // await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: true, asLocalhost: true } });
+      // const network = await gateway.getNetwork('mychannel');
+      // const contract = network.getContract('DataSharingAgreement');
+      // const result = await contract.submitTransaction('recordConsent', ...args);
+      // return JSON.parse(result.toString());
+      
       // In a real implementation, this would invoke the chaincode
       // For the prototype, we'll simulate the blockchain response
       return {
@@ -60,6 +72,18 @@ class BlockchainService {
     try {
       console.log(`Revoking consent ${consentId} on blockchain`);
       
+      // TODO: Integrate with Hyperledger Fabric SDK for real chaincode invocation
+      // Example (pseudo-code):
+      // const { Gateway, Wallets } = require('fabric-network');
+      // const ccpPath = path.resolve(__dirname, '../../blockchain/network/connection-org1.json');
+      // ...
+      // const gateway = new Gateway();
+      // await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: true, asLocalhost: true } });
+      // const network = await gateway.getNetwork('mychannel');
+      // const contract = network.getContract('DataSharingAgreement');
+      // const result = await contract.submitTransaction('revokeConsent', ...args);
+      // return JSON.parse(result.toString());
+      
       // Simulated blockchain response
       return {
         txId: `tx_${Date.now()}`,
@@ -90,6 +114,18 @@ class BlockchainService {
     try {
       console.log(`Verifying consent ${consentId} on blockchain`);
       
+      // TODO: Integrate with Hyperledger Fabric SDK for real chaincode invocation
+      // Example (pseudo-code):
+      // const { Gateway, Wallets } = require('fabric-network');
+      // const ccpPath = path.resolve(__dirname, '../../blockchain/network/connection-org1.json');
+      // ...
+      // const gateway = new Gateway();
+      // await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: true, asLocalhost: true } });
+      // const network = await gateway.getNetwork('mychannel');
+      // const contract = network.getContract('DataSharingAgreement');
+      // const result = await contract.evaluateTransaction('verifyConsent', ...args);
+      // return JSON.parse(result.toString());
+      
       // Simulated verification response
       return {
         valid: true,
@@ -111,6 +147,18 @@ class BlockchainService {
   async getAuditTrail(consentId) {
     try {
       console.log(`Getting audit trail for consent ${consentId} from blockchain`);
+      
+      // TODO: Integrate with Hyperledger Fabric SDK for real chaincode invocation
+      // Example (pseudo-code):
+      // const { Gateway, Wallets } = require('fabric-network');
+      // const ccpPath = path.resolve(__dirname, '../../blockchain/network/connection-org1.json');
+      // ...
+      // const gateway = new Gateway();
+      // await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: true, asLocalhost: true } });
+      // const network = await gateway.getNetwork('mychannel');
+      // const contract = network.getContract('DataSharingAgreement');
+      // const result = await contract.evaluateTransaction('getAuditTrail', consentId);
+      // return JSON.parse(result.toString());
       
       // Simulated audit trail
       return [
@@ -147,6 +195,18 @@ class BlockchainService {
   async queryConsentsByUser(userId) {
     try {
       console.log(`Querying consents for user ${userId} from blockchain`);
+      
+      // TODO: Integrate with Hyperledger Fabric SDK for real chaincode invocation
+      // Example (pseudo-code):
+      // const { Gateway, Wallets } = require('fabric-network');
+      // const ccpPath = path.resolve(__dirname, '../../blockchain/network/connection-org1.json');
+      // ...
+      // const gateway = new Gateway();
+      // await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: true, asLocalhost: true } });
+      // const network = await gateway.getNetwork('mychannel');
+      // const contract = network.getContract('DataSharingAgreement');
+      // const result = await contract.evaluateTransaction('queryConsentsByUser', userId);
+      // return JSON.parse(result.toString());
       
       // Simulated consent list
       return [
