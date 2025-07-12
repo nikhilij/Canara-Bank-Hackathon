@@ -10,18 +10,18 @@ const tokenizationController = require('../controllers/tokenizationController');
 
 // Import middleware
 const { authenticateJWT, authorize } = require('../middleware/auth');
-const { validateRequest } = require('../middleware/validation');
-const { rateLimit } = require('../middleware/rateLimit');
+const validateRequest = require('../middleware/validation');
+const rateLimit = require('../middleware/rateLimit');
 
 // API versioning
 const API_VERSION = '/api/v1';
 
 // Auth Routes with rate limiting
-router.post(`${API_VERSION}/auth/login`, rateLimit.auth, validateRequest('login'), authController.login);
-router.post(`${API_VERSION}/auth/register`, rateLimit.auth, validateRequest('register'), authController.register);
-router.post(`${API_VERSION}/auth/forgot-password`, rateLimit.auth, validateRequest('forgotPassword'), authController.forgotPassword);
-router.post(`${API_VERSION}/auth/reset-password`, rateLimit.auth, validateRequest('resetPassword'), authController.resetPassword);
-router.post(`${API_VERSION}/auth/refresh`, rateLimit.auth, authController.refreshToken);
+router.post(`${API_VERSION}/auth/login`, rateLimit(), validateRequest, authController.login);
+router.post(`${API_VERSION}/auth/register`, rateLimit(), validateRequest, authController.register);
+router.post(`${API_VERSION}/auth/forgot-password`, rateLimit(), validateRequest, authController.forgotPassword);
+router.post(`${API_VERSION}/auth/reset-password`, rateLimit(), validateRequest, authController.resetPassword);
+router.post(`${API_VERSION}/auth/refresh`, rateLimit(), authController.refreshToken);
 router.post(`${API_VERSION}/auth/logout`, authenticateJWT, authController.logout);
 
 // Tokenization Endpoints (from README)
@@ -32,17 +32,17 @@ router.delete(`${API_VERSION}/token/:token`, authenticateJWT, tokenizationContro
 
 // Consent Routes with pagination and filtering
 router.get(`${API_VERSION}/consents`, authenticateJWT, consentController.getUserConsents);
-router.get(`${API_VERSION}/consents/:id`, authenticateJWT, validateRequest('getConsent'), consentController.getConsentDetails);
-router.post(`${API_VERSION}/consents`, authenticateJWT, validateRequest('grantConsent'), consentController.grantConsent);
-router.patch(`${API_VERSION}/consents/:id/revoke`, authenticateJWT, validateRequest('revokeConsent'), consentController.revokeConsent);
+router.get(`${API_VERSION}/consents/:id`, authenticateJWT, validateRequest, consentController.getConsentDetails);
+router.post(`${API_VERSION}/consents`, authenticateJWT, validateRequest, consentController.grantConsent);
+router.patch(`${API_VERSION}/consents/:id/revoke`, authenticateJWT, validateRequest, consentController.revokeConsent);
 router.post(`${API_VERSION}/revoke`, authenticateJWT, consentController.revokeConsent); // Revoke consent (README endpoint)
 router.get(`${API_VERSION}/consents/:id/audit-trail`, authenticateJWT, consentController.getConsentAuditTrail);
 router.get(`${API_VERSION}/consents/categories`, authenticateJWT, consentController.getConsentCategories);
 router.get(`${API_VERSION}/consents/purposes`, authenticateJWT, consentController.getConsentPurposes);
 
 // Bulk consent operations
-router.post(`${API_VERSION}/consents/bulk/grant`, authenticateJWT, validateRequest('bulkGrant'), consentController.bulkGrantConsents);
-router.patch(`${API_VERSION}/consents/bulk/revoke`, authenticateJWT, validateRequest('bulkRevoke'), consentController.bulkRevokeConsents);
+router.post(`${API_VERSION}/consents/bulk/grant`, authenticateJWT, validateRequest, consentController.bulkGrantConsents);
+router.patch(`${API_VERSION}/consents/bulk/revoke`, authenticateJWT, validateRequest, consentController.bulkRevokeConsents);
 
 // Audit Routes with advanced filtering
 router.get(`${API_VERSION}/audit-logs`, authenticateJWT, auditController.getUserAuditLogs); // Fetch audit trail (README endpoint)
@@ -58,8 +58,8 @@ router.post(`${API_VERSION}/share-data`, authenticateJWT, auditController.shareD
 
 // User Profile Routes
 router.get(`${API_VERSION}/user/profile`, authenticateJWT, userController.getProfile);
-router.put(`${API_VERSION}/user/profile`, authenticateJWT, validateRequest('updateProfile'), userController.updateProfile);
-router.put(`${API_VERSION}/user/password`, authenticateJWT, validateRequest('updatePassword'), userController.updatePassword);
+router.put(`${API_VERSION}/user/profile`, authenticateJWT, validateRequest, userController.updateProfile);
+router.put(`${API_VERSION}/user/password`, authenticateJWT, validateRequest, userController.updatePassword);
 router.delete(`${API_VERSION}/user/account`, authenticateJWT, userController.deleteAccount);
 
 // Admin Routes (if applicable)

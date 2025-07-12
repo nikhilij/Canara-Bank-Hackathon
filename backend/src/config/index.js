@@ -4,17 +4,23 @@ module.exports = {
   // Server configuration
   port: process.env.PORT || 5000,
   env: process.env.NODE_ENV || 'development',
-  
-  // Database configuration
-  database: {
-    host: process.env.DB_HOST || 'localhost',
-    port: parseInt(process.env.DB_PORT) || 5432,
-    name: process.env.DB_NAME || 'trustvault',
-    user: process.env.DB_USER || 'postgres',
-    password: process.env.DB_PASSWORD || 'password',
-    logging: process.env.DB_LOGGING === 'true',
-    ssl: process.env.DB_SSL === 'true'
-  },
+
+  // Database configuration (use SQLite for local development)
+  database: process.env.NODE_ENV === 'production'
+    ? {
+        host: process.env.DB_HOST || 'localhost',
+        port: parseInt(process.env.DB_PORT) || 5432,
+        name: process.env.DB_NAME || 'trustvault',
+        user: process.env.DB_USER || 'postgres',
+        password: process.env.DB_PASSWORD || 'password',
+        logging: process.env.DB_LOGGING === 'true',
+        ssl: process.env.DB_SSL === 'true'
+      }
+    : {
+        dialect: 'sqlite',
+        storage: './trustvault.sqlite',
+        logging: false
+      },
   
   // JWT configuration
   jwtSecret: process.env.JWT_SECRET || 'your-secret-key-change-in-production',

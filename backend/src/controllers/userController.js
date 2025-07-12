@@ -1,3 +1,19 @@
+// Add missing stubs for required userController functions
+exports.getProfile = async (req, res) => {
+  res.json({ success: true, message: 'getProfile stub', user: req.user || null });
+};
+
+exports.updateProfile = async (req, res) => {
+  res.json({ success: true, message: 'updateProfile stub' });
+};
+
+exports.updatePassword = async (req, res) => {
+  res.json({ success: true, message: 'updatePassword stub' });
+};
+
+exports.deleteAccount = async (req, res) => {
+  res.json({ success: true, message: 'deleteAccount stub' });
+};
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');

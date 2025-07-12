@@ -232,3 +232,21 @@ exports.resetPassword = async (req, res) => {
     return res.status(500).json({ message: 'An error occurred while resetting your password' });
   }
 };
+
+/**
+ * Refresh JWT token
+ * @route POST /api/auth/refresh
+ */
+exports.refreshToken = async (req, res) => {
+  // Stub implementation
+  res.status(200).json({ message: 'Token refreshed (stub)' });
+};
+
+/**
+ * Logout user
+ * @route POST /api/auth/logout
+ */
+exports.logout = async (req, res) => {
+  // Stub implementation
+  res.status(200).json({ message: 'Logout successful (stub)' });
+};

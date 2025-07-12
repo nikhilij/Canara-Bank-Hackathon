@@ -1,15 +1,18 @@
 # API Documentation
 
 ## Overview
-This directory contains the API documentation for the Canara Bank Hackathon project.
+This directory contains the API documentation for TrustVault, covering authentication, consent, tokenization, audit, compliance, and integration endpoints.
 
 ## Getting Started
-- [Authentication](./authentication.md)
-- [Endpoints](./endpoints.md)
-- [Error Handling](./error-handling.md)
+- [Authentication](./auth.md)
+- [Consent](./consent.md)
+- [Tokenization](./tokenization.md)
+- [Audit](./audit.md)
+- [Compliance](./compliance.md)
 
 ## API Reference
-Complete API reference documentation will be added here.
+- All endpoints require JWT authentication unless otherwise noted.
+- Rate limits and error codes are documented per endpoint.
 
 ## Examples
-Code examples and usage scenarios will be provided in this section.
+- Example requests and responses are provided in each endpoint doc.

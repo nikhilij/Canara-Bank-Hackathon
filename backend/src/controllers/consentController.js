@@ -1,3 +1,29 @@
+/**
+ * Bulk grant consents
+ * @route POST /api/consents/bulk/grant
+ */
+exports.bulkGrantConsents = async (req, res) => {
+  // Stub implementation
+  res.status(200).json({ message: 'Bulk grant consents stub' });
+};
+
+/**
+ * Bulk revoke consents
+ * @route PATCH /api/consents/bulk/revoke
+ */
+exports.bulkRevokeConsents = async (req, res) => {
+  // Stub implementation
+  res.status(200).json({ message: 'Bulk revoke consents stub' });
+};
+
+/**
+ * Get all consents (admin)
+ * @route GET /api/admin/consents
+ */
+exports.getAllConsents = async (req, res) => {
+  // Stub implementation
+  res.status(200).json({ message: 'Get all consents stub' });
+};
 const { Consent, ConsentAudit } = require('../models/Consent');
 const { BlockchainService } = require('../services/blockchainService');
 const { TokenizationService } = require('../services/tokenizationService');

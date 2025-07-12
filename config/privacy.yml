@@ -1,0 +1,16 @@
+# Privacy and compliance configuration for TrustVault
+privacy:
+  differential_privacy_epsilon: 0.1
+  tokenization_secret: change-this-in-production
+  enable_privacy_engine: true
+  enable_data_anonymization: true
+  enable_geo_fencing: true
+  restricted_countries:
+    - RU
+    - CN
+    - NK
+compliance:
+  gdpr_enabled: true
+  dpdp_enabled: true
+  pci_dss_enabled: true
+  iso_27001_enabled: true

@@ -1,3 +1,58 @@
+/**
+ * Get user audit logs
+ * @route GET /api/audit-logs
+ */
+exports.getUserAuditLogs = async (req, res) => {
+  res.status(200).json({ message: 'getUserAuditLogs stub' });
+};
+
+/**
+ * Get audit summary
+ * @route GET /api/audit-logs/summary
+ */
+exports.getAuditSummary = async (req, res) => {
+  res.status(200).json({ message: 'getAuditSummary stub' });
+};
+
+/**
+ * Export audit logs
+ * @route GET /api/audit-logs/export
+ */
+exports.exportAuditLogs = async (req, res) => {
+  res.status(200).json({ message: 'exportAuditLogs stub' });
+};
+
+/**
+ * Get data access logs
+ * @route GET /api/data-access
+ */
+exports.getDataAccessLogs = async (req, res) => {
+  res.status(200).json({ message: 'getDataAccessLogs stub' });
+};
+
+/**
+ * Get data access summary
+ * @route GET /api/data-access/summary
+ */
+exports.getDataAccessSummary = async (req, res) => {
+  res.status(200).json({ message: 'getDataAccessSummary stub' });
+};
+
+/**
+ * Get all audit logs (admin)
+ * @route GET /api/admin/audit-logs
+ */
+exports.getAllAuditLogs = async (req, res) => {
+  res.status(200).json({ message: 'getAllAuditLogs stub' });
+};
+
+/**
+ * Get metrics (admin)
+ * @route GET /metrics
+ */
+exports.getMetrics = async (req, res) => {
+  res.status(200).json({ message: 'getMetrics stub' });
+};
 const AuditLog = require('../models/AuditLog');
 
 // Audit logging controller
@@ -122,10 +177,9 @@ const shareData = async (req, res) => {
     }
 };
 
-module.exports = {
-    createAuditLog,
-    getAuditLogs,
-    getAuditLogById,
-    cleanupAuditLogs,
-    shareData
-};
+exports.createAuditLog = createAuditLog;
+exports.getAuditLogs = getAuditLogs;
+exports.getAuditLogById = getAuditLogById;
+exports.cleanupAuditLogs = cleanupAuditLogs;
+exports.shareData = shareData;
+// Already exported above: getUserAuditLogs, getAuditSummary, exportAuditLogs, getDataAccessLogs, getDataAccessSummary, getAllAuditLogs, getMetrics

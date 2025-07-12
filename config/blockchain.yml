@@ -1,0 +1,17 @@
+# Blockchain network configuration for TrustVault
+fabric:
+  network_id: trustvault-network
+  channel_name: trustvault-channel
+  chaincode_name: consent-agreement
+  wallet_path: ./wallet
+  user_id: admin
+  ca_url: http://localhost:7054
+  orderer_url: http://localhost:7050
+  peer_url: http://localhost:7051
+  msp_id: Org1MSP
+  tls_enabled: true
+
+general:
+  enable_audit: true
+  enable_consent_contract: true
+  enable_chaincode: true

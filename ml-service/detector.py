@@ -5,6 +5,7 @@ from flask import Flask, request, jsonify
 import logging
 import os
 from dotenv import load_dotenv
+from functools import wraps
 
 # Load environment variables
 load_dotenv()
@@ -15,6 +16,18 @@ logger = logging.getLogger(__name__)
 
 # Initialize Flask app
 app = Flask(__name__)
+
+# Simple token-based authentication
+API_TOKEN = os.getenv('API_TOKEN', 'trustvault-ml-token')
+
+def require_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.headers.get('Authorization')
+        if not token or token.replace('Bearer ', '') != API_TOKEN:
+            return jsonify({'error': 'Unauthorized'}), 401
+        return f(*args, **kwargs)
+    return decorated
 
 class AnomalyDetector:
     """
@@ -102,11 +115,25 @@ class AnomalyDetector:
         except Exception as e:
             logger.error(f"Error calculating anomaly scores: {e}")
             return None
+        
+    def save_model(self, path='anomaly_model.pkl'):
+        import joblib
+        joblib.dump(self.model, path)
+        logging.info(f"Model saved to {path}")
+        
+    def load_model(self, path='anomaly_model.pkl'):
+        import joblib
+        if os.path.exists(path):
+            self.model = joblib.load(path)
+            self.is_trained = True
+            logging.info(f"Model loaded from {path}")
 
 # Initialize the detector
 detector = AnomalyDetector()
+detector.load_model()
 
 @app.route('/train', methods=['POST'])
+@require_auth
 def train_model():
     """Train the anomaly detection model with historical access data"""
     data = request.json
@@ -117,8 +144,8 @@ def train_model():
     try:
         df = pd.DataFrame(data['features'])
         success = detector.train(df)
-        
         if success:
+            detector.save_model()
             return jsonify({"status": "success", "message": "Model trained successfully"})
         else:
             return jsonify({"status": "error", "message": "Failed to train model"}), 500
@@ -127,6 +154,7 @@ def train_model():
         return jsonify({"status": "error", "message": str(e)}), 500
 
 @app.route('/detect', methods=['POST'])
+@require_auth
 def detect():
     """Detect anomalies in access patterns"""
     data = request.json

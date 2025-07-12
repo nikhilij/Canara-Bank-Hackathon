@@ -1,0 +1,10 @@
+# External service endpoints for TrustVault
+services:
+  tokenization_api_url: http://localhost:5001
+  anomaly_detection_api_url: http://localhost:5002
+  blockchain_api_url: http://localhost:8545
+  email_host: smtp.example.com
+  email_port: 587
+  email_user: user@example.com
+  email_pass: password
+  geolocation_api_key: ''

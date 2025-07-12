@@ -2,7 +2,8 @@
 
 ## Prerequisites
 - Node.js (v14 or higher)
-- npm or yarn
+- Python 3.8+
+- Docker & Docker Compose
 - Git
 
 ## Environment Setup
@@ -14,83 +15,68 @@ cd Canara-Bank-Hackathon
 ```
 
 ### 2. Install Dependencies
+#### Backend
 ```bash
+cd backend
 npm install
-# or
-yarn install
+```
+#### Frontend
+```bash
+cd frontend
+npm install
+```
+#### Privacy Engine
+```bash
+cd privacy-engine
+pip install -r requirements.txt
+```
+#### ML Service
+```bash
+cd ml-service
+pip install -r requirements.txt
 ```
 
 ### 3. Environment Variables
-Create a `.env` file in the root directory:
+Create `.env` files for backend, frontend, and services as needed.
+
+## Local Development
+Run each service in separate terminals:
 ```bash
-cp .env.example .env
-```
-
-Update the environment variables as needed:
-```
-DATABASE_URL=your_database_url
-API_KEY=your_api_key
-PORT=3000
-```
-
-## Development Deployment
-
-### Local Development
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-The application will be available at `http://localhost:3000`
-
-## Production Deployment
-
-### Build for Production
-```bash
-npm run build
-# or
-yarn build
-```
-
-### Start Production Server
-```bash
-npm start
-# or
-yarn start
+# Backend
+cd backend && npm run dev
+# Frontend
+cd frontend && npm run dev
+# Privacy Engine
+cd privacy-engine && python tokenizer.py
+# ML Service
+cd ml-service && python detector.py
 ```
 
 ## Docker Deployment
-
-### Build Docker Image
+Run all services with Docker Compose:
 ```bash
-docker build -t canara-bank-app .
+cd blockchain/network
+./network.sh start
+cd ../..
+docker-compose up --build
 ```
 
-### Run Docker Container
-```bash
-docker run -p 3000:3000 canara-bank-app
-```
-
-## Cloud Deployment
-
-### Deploy to Heroku
-```bash
-heroku create your-app-name
-git push heroku main
-```
-
-### Deploy to Vercel
-```bash
-vercel --prod
-```
+## Blockchain Network
+- Chaincode is deployed via Hyperledger Fabric (see blockchain/network)
+- Use `network.sh` to start/stop/restart the network
 
 ## Health Checks
-- Application health: `/health`
-- Database connection: `/health/db`
+- Backend: `/health`
+- Frontend: `/health` (if implemented)
+- Privacy Engine: `/health` (if implemented)
+- ML Service: `/health` (if implemented)
+
+## Cloud Deployment
+- Deploy containers to AWS, Azure, GCP, or on-prem
+- Use environment variables for secrets and endpoints
 
 ## Troubleshooting
-- Check logs: `npm run logs`
-- Verify environment variables
-- Ensure all dependencies are installed
-- Check port availability
+- Check logs for each service
+- Verify Docker containers are running
+- Ensure all environment variables are set
+- Check network connectivity between services

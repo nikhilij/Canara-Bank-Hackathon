@@ -5,6 +5,10 @@ import logging
 from datetime import datetime
 import hashlib
 import re
+from anonymization import PrivacyEngine as AdvancedPrivacyEngine
+from differential_privacy import DifferentialPrivacy
+from encryption import EncryptionManager
+from tokenizer import TokenizationService
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -200,3 +204,96 @@ def internal_error(error):
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=app.config['DEBUG'])
+
+# --- Advanced Anonymization Endpoint ---
+advanced_privacy_engine = AdvancedPrivacyEngine()
+
+@app.route('/advanced-anonymize', methods=['POST'])
+def advanced_anonymize():
+    """Advanced anonymization using PrivacyEngine from anonymization.py"""
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+        records = data.get('records', [])
+        method = data.get('method', 'hash_value')
+        params = data.get('params', {})
+        anonymized = []
+        for record in records:
+            if hasattr(advanced_privacy_engine, method):
+                func = getattr(advanced_privacy_engine, method)
+                anonymized.append(func(**{**record, **params}))
+            else:
+                anonymized.append(record)
+        return jsonify({'success': True, 'anonymized': anonymized})
+    except Exception as e:
+        logger.error(f"Advanced anonymization error: {str(e)}")
+        return jsonify({'error': 'Internal server error'}), 500
+
+# --- Differential Privacy Endpoint ---
+dp_engine = DifferentialPrivacy()
+
+@app.route('/differential-privacy', methods=['POST'])
+def differential_privacy():
+    """Apply differential privacy Laplace mechanism"""
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+        values = data.get('values')
+        sensitivity = data.get('sensitivity', 1.0)
+        epsilon = data.get('epsilon', 1.0)
+        dp_engine.epsilon = epsilon
+        noisy = dp_engine.laplace_mechanism(values, sensitivity)
+        return jsonify({'success': True, 'noisy': noisy})
+    except Exception as e:
+        logger.error(f"Differential privacy error: {str(e)}")
+        return jsonify({'error': 'Internal server error'}), 500
+
+# --- Encryption/Decryption Endpoints ---
+@app.route('/encrypt', methods=['POST'])
+def encrypt_data():
+    """Encrypt data using EncryptionManager"""
+    try:
+        data = request.get_json()
+        if not data or 'text' not in data:
+            return jsonify({'error': 'No text provided'}), 400
+        password = data.get('password', None)
+        manager = EncryptionManager(password)
+        encrypted = manager.encrypt(data['text'])
+        return jsonify({'success': True, 'encrypted': encrypted})
+    except Exception as e:
+        logger.error(f"Encryption error: {str(e)}")
+        return jsonify({'error': 'Internal server error'}), 500
+
+@app.route('/decrypt', methods=['POST'])
+def decrypt_data():
+    """Decrypt data using EncryptionManager"""
+    try:
+        data = request.get_json()
+        if not data or 'encrypted' not in data:
+            return jsonify({'error': 'No encrypted data provided'}), 400
+        password = data.get('password', None)
+        manager = EncryptionManager(password)
+        decrypted = manager.decrypt(data['encrypted'])
+        return jsonify({'success': True, 'decrypted': decrypted})
+    except Exception as e:
+        logger.error(f"Decryption error: {str(e)}")
+        return jsonify({'error': 'Internal server error'}), 500
+
+# --- Tokenization Endpoint ---
+tokenization_service = TokenizationService(os.environ.get('TOKENIZATION_SECRET_KEY', 'change-this-in-production'))
+
+@app.route('/tokenize', methods=['POST'])
+def tokenize_data():
+    """Tokenize sensitive data using TokenizationService"""
+    try:
+        data = request.get_json()
+        if not data or 'text' not in data:
+            return jsonify({'error': 'No text provided'}), 400
+        context = data.get('context', None)
+        token = tokenization_service.tokenize(data['text'], context)
+        return jsonify({'success': True, 'token': token})
+    except Exception as e:
+        logger.error(f"Tokenization error: {str(e)}")
+        return jsonify({'error': 'Internal server error'}), 500

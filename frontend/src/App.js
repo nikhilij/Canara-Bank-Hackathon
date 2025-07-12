@@ -12,6 +12,7 @@ import ConsentManagement from './pages/ConsentManagement';
 import AuditLogs from './pages/AuditLogs';
 import DataAccess from './pages/DataAccess';
 import Profile from './pages/Profile';
+import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
@@ -40,11 +41,15 @@ function App() {
   return (
     <Routes>
       {/* Auth Routes */}
-      <Route path="/" element={<AuthLayout />}>
-        <Route index element={<Navigate to="/login" />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="forgot-password" element={<ForgotPassword />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<AuthLayout />}>
+        <Route index element={<Login />} />
+      </Route>
+      <Route path="/register" element={<AuthLayout />}>
+        <Route index element={<Register />} />
+      </Route>
+      <Route path="/forgot-password" element={<AuthLayout />}>
+        <Route index element={<ForgotPassword />} />
       </Route>
       
       {/* Dashboard Routes */}

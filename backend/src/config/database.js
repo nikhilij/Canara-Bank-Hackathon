@@ -1,30 +1,38 @@
 const { Sequelize } = require('sequelize');
 const config = require('./index');
 
-// Create a Sequelize instance
-const sequelize = new Sequelize(
-  config.database.name,
-  config.database.user,
-  config.database.password,
-  {
-    host: config.database.host,
-    port: config.database.port,
-    dialect: 'postgres',
-    logging: config.database.logging ? console.log : false,
-    dialectOptions: {
-      ssl: config.database.ssl ? {
-        require: true,
-        rejectUnauthorized: false
-      } : false
-    },
-    pool: {
-      max: 10,
-      min: 0,
-      acquire: 30000,
-      idle: 10000
+let sequelize;
+if (config.database.dialect === 'sqlite') {
+  sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: config.database.storage,
+    logging: config.database.logging ? console.log : false
+  });
+} else {
+  sequelize = new Sequelize(
+    config.database.name,
+    config.database.user,
+    config.database.password,
+    {
+      host: config.database.host,
+      port: config.database.port,
+      dialect: 'postgres',
+      logging: config.database.logging ? console.log : false,
+      dialectOptions: {
+        ssl: config.database.ssl ? {
+          require: true,
+          rejectUnauthorized: false
+        } : false
+      },
+      pool: {
+        max: 10,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+      }
     }
-  }
-);
+  );
+}
 
 // Test the connection
 const testConnection = async () => {
