@@ -1,0 +1,42 @@
+# Production configuration
+server:
+  host: "0.0.0.0"
+  port: 8080
+  ssl: true
+
+database:
+  host: "${DB_HOST}"
+  port: "${DB_PORT:5432}"
+  name: "${DB_NAME}"
+  username: "${DB_USERNAME}"
+  password: "${DB_PASSWORD}"
+  ssl: true
+  pool:
+    min: 10
+    max: 50
+
+redis:
+  host: "${REDIS_HOST}"
+  port: "${REDIS_PORT:6379}"
+  password: "${REDIS_PASSWORD}"
+
+logging:
+  level: "info"
+  format: "json"
+  file: "/var/log/app.log"
+
+security:
+  jwt:
+    secret: "${JWT_SECRET}"
+    expiration: "24h"
+  cors:
+    enabled: true
+    origins: ["https://yourdomain.com"]
+
+performance:
+  cache:
+    enabled: true
+    ttl: "1h"
+  rate_limiting:
+    enabled: true
+    requests_per_minute: 100

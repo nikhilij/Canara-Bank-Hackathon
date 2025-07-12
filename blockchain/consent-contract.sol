@@ -1,7 +1,3 @@
-// This file should be renamed to have a .sol extension for Solidity smart contracts
-// The content below is Solidity code, not JavaScript
-
-const ConsentContract = `
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -109,6 +105,3 @@ contract ConsentContract {
         return userConsents[user];
     }
 }
-`;
-
-module.exports = ConsentContract;

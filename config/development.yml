@@ -1,0 +1,33 @@
+# Development environment configuration
+database:
+  host: localhost
+  port: 5432
+  name: canara_bank_dev
+  username: postgres
+  password: password
+
+server:
+  host: localhost
+  port: 3000
+  debug: true
+
+logging:
+  level: debug
+  file: logs/development.log
+
+redis:
+  host: localhost
+  port: 6379
+  database: 0
+
+jwt:
+  secret: your-dev-jwt-secret-key
+  expiration: 24h
+
+api:
+  base_url: http://localhost:3000
+  timeout: 30s
+
+features:
+  enable_debug_mode: true
+  enable_test_data: true

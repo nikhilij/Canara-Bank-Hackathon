@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  # Add your services here
+  example-service:
+    image: ubuntu:latest
+    container_name: example-container
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data
+    networks:
+      - blockchain-network
+
+networks:
+  blockchain-network:
+    driver: bridge
+
+volumes:
+  blockchain-data:

@@ -1,0 +1,17 @@
+# Test configuration file
+test:
+  environment: test
+  database:
+    host: localhost
+    port: 5432
+    name: test_db
+    username: test_user
+    password: test_password
+  
+  api:
+    base_url: http://localhost:3000
+    timeout: 30
+  
+  logging:
+    level: debug
+    output: console
